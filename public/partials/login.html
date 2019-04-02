@@ -1,0 +1,57 @@
+<div class="col-md-6 col-md-offset-3">
+  <h2>Login</h2>
+  <form name="form" ng-submit="vm.login()" role="form">
+    <div class="form-group" ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
+      <label for="username">Username</label>
+      <input type="text" name="username" id="username" class="form-control" ng-model="vm.username" placeholder="username" required />
+      <span ng-show="form.username.$dirty && form.username.$error.required" class="help-block">Username is required</span>
+    </div>
+    <div class="form-group" ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
+      <label for="password">Password</label>
+      <input type="password" name="password" id="password" class="form-control" ng-model="vm.password" placeholder="email_id is password" required />
+      <span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">Password is required</span>
+    </div>
+    <div class="form-actions">
+      <button type="submit" ng-disabled="form.$invalid || vm.dataLoading" class="btn btn-primary" ng-click="loginUser()">Login</button>
+    </div>
+  </form>
+</div>
+
+<button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#createNewUser" style="float: right; margin-right: 7rem">
+  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Sign Up
+</button>
+
+<div class="modal fade" id="createNewUser" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="createFormReset()"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" style="color: #1E90FF;background-color: #F5F5F5;" id="myModalLabel">Create</h4>
+      </div>
+      <div class="modal-body" style="padding-right: 40px;">
+
+        <form class="form-horizontal" name="sing_up_form" id="sing_up_form" role="form">
+
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="sing_up_form">Name*:</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="create_name" id="create_name" placeholder="Name">
+            </div>
+          </div><br>
+
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="password">Password*:</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="email_id" id="email_id" placeholder="Email id will be password" required>
+            </div>
+          </div><br>
+
+          <div class="modal-footer">
+            <a href="#/home"><button type="submit" ng-click="signUp()" class="btn btn-primary" ng-disabled="sing_up_form.$invalid">Create</button></a>
+            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="createFormReset()">Close</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

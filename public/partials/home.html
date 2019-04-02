@@ -1,0 +1,118 @@
+<div class="container">
+  <h3>Welcome:</h3>
+</div>
+<div class="container">
+	<a role="button" href="#/" style="float: right" class="btn btn-primary">Back</a>
+	<a role="button" href="#/trash_post" style="float: right; margin-right: 3rem" class="btn btn-primary btn-md">Trashed Posts</a>
+	<a role="button" href="#/trash_comment" style="float: right; margin-right: 3rem" class="btn btn-primary btn-md">Trashed Comments</a>
+</div><br>
+<div class="container">
+	<button type="submit" data-toggle="modal" data-target="#createPostModal" style="float: right;" class="btn btn-primary btn-md">Create Post</button>
+</div><br>
+<section id="main">
+  <div class="container">
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped">
+        <thead align="center">
+          <tr>
+            <td>Id</td>
+            <td>Post</td>
+            <td>Action</td>
+          </tr>
+        </thead>
+        <tbody style="text-align: center;">
+          <tr ng-repeat="post in post_data">
+          	<td>{{post.id}}</td>
+            <td>{{post.data}}</td>
+            <td>
+              <button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#editPostModal" ng-click="editPostFill(post)">
+                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+              </button>
+              <a role="button" class="btn btn-primary btn-md" ng-click="postName(post.data)" href="#/comments/{{post.id}}" >Comment
+              </button></a>
+              <button  type="button" class="btn btn-primary btn-md" ng-click="softDeletePost(post.id)">
+                Soft Delete
+              </button>
+              <button  type="button" class="btn btn-primary btn-md" ng-click="deletePost(post.id)">
+                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+              </button>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div ng-if="loading">
+      <div ng-show="loading" class="loader" ng-model="loading" style="position:fixed;top:50%;left:40%;">
+      </div>
+    </div>
+</section>
+
+
+
+<div class="modal fade" id="createPostModal" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="createFormReset()"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" style="color: #1E90FF;background-color: #F5F5F5;" id="myModalLabel">Create Post</h4>
+      </div>
+      <div class="modal-body" style="padding-right: 40px;">
+
+        <form class="form-horizontal" name="create_post_form" id="create_post_form" role="form">
+
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="create_post">Post:</label>
+            <div class="col-sm-10">
+        			<textarea type="text" class="form-control" name="create_post" id="create_post" placeholder="Write Post"></textarea>
+      			</div>
+          </div><br>
+
+          <div class="modal-footer">
+            <button type="submit" ng-click="createPost()" class="btn btn-primary" ng-disabled="create_post_form.$invalid">Create</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="createFormReset()">Close</button>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+  <div ng-if="create_loading">
+    <div ng-show="create_loading" class="loader" ng-model="create_loading" style="position:fixed;top:60%;left:40%;">
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="editPostModal" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="createFormReset()"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" style="color: #1E90FF;background-color: #F5F5F5;" id="myModalLabel">Edit Post</h4>
+      </div>
+      <div class="modal-body" style="padding-right: 40px;">
+
+        <form class="form-horizontal" name="edit_post_form" id="edit_post_form" role="form">
+
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="edit_post">Post:</label>
+            <div class="col-sm-10">
+        			<textarea type="text" class="form-control" name="edit_post" id="edit_post" ng-model="edit_post"></textarea>
+      			</div>
+          </div><br>
+
+          <div class="modal-footer">
+            <button type="submit" ng-click="editPost()" class="btn btn-primary" ng-disabled="edit_post_form.$invalid">Edit</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="createFormReset()">Close</button>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+  <div ng-if="edit_loading">
+    <div ng-show="edit_loading" class="loader" ng-model="edit_loading" style="position:fixed;top:60%;left:40%;">
+    </div>
+  </div>
+</div>

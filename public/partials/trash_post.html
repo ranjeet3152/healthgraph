@@ -1,0 +1,32 @@
+<div class="container">
+	<a role="button" href="#/home" style="float: right" class="btn btn-primary">Back</a>
+</div>
+<section id="main">
+  <div class="container">
+  	<strong>List of trashed posts</strong><br>
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped">
+        <thead align="center">
+          <tr>
+            <td>Id</td>
+            <td>Post</td>
+            <td>Action</td>
+          </tr>
+        </thead>
+        <tbody style="text-align: center;">
+          <tr ng-repeat="post in trash_post">
+          	<td>{{post.id}}</td>
+            <td>{{post.data}}</td>
+            <td>
+              <button type="button" class="btn btn-primary btn-md" ng-click="restorePost(post.id)">
+                Restore Post
+              </button>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div ng-if="loading">
+      <div ng-show="loading" class="loader" ng-model="loading" style="position:fixed;top:50%;left:40%;">
+      </div>
+    </div>
+</section>
